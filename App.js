@@ -3,35 +3,15 @@ import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
 import InfoBar from './src/components/InfoBar';
 import Navbar from './src/components/navbar';
 import DemandBox from './src/components/DemandBox';
+import Demands from './src/Screens/Demands';
 
 export default function App() {
   return (
     <>
-      <InfoBar />
+      {/* <InfoBar /> */}
       <Navbar />
-      <View style={styles.container}>
-
-        <View>
-          <Text style={styles.container_title}>Últimas movimentações</Text>
-        </View>
-
-        <ScrollView
-          style={styles.containerView}
-          contentContainerStyle={{
-            rowGap: 20,
-            alignItems: 'center',
-          }}>
-            
-          <DemandBox/>
-          <DemandBox/>
-          <DemandBox/>
-          <DemandBox/>
-          <DemandBox/>
-
-        </ScrollView>
-
-        <StatusBar style="auto" />
-      </View>
+      <Demands />
+      
     </>
   );
 }
