@@ -8,7 +8,7 @@ import Demands from './src/Screens/Demands';
 export default function App() {
   return (
     <>
-      {/* <InfoBar /> */}
+      <InfoBar />
       <Navbar />
       <Demands />
       
