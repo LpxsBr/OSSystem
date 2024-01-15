@@ -1,17 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
-import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import InfoBar from './src/components/InfoBar';
 import Navbar from './src/components/navbar';
-import DemandBox from './src/components/DemandBox';
-import Demands from './src/Screens/Demands';
+import { NavigationContainer } from '@react-navigation/native';
+import Routes from './src/Routes';
+import { AuthProvider } from './src/contexts/auth';
 
 export default function App() {
+
   return (
     <>
-      <InfoBar />
-      <Navbar />
-      <Demands />
-      
+      <AuthProvider>
+        <NavigationContainer>
+          {/* some components */}
+          <InfoBar />
+          <Navbar />
+          {/* route component */}
+          <Routes />
+        </NavigationContainer>
+      </AuthProvider>
     </>
   );
 }
