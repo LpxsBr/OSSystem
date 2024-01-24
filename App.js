@@ -4,6 +4,7 @@ import Navbar from './src/components/navbar';
 import { NavigationContainer } from '@react-navigation/native';
 import Routes from './src/Routes';
 import { AuthProvider } from './src/contexts/auth';
+import { StatusBar } from 'expo-status-bar';
 
 export default function App() {
 
@@ -12,7 +13,8 @@ export default function App() {
       <AuthProvider>
         <NavigationContainer>
           {/* some components */}
-          <InfoBar />
+          {/* <StatusBar/> */}
+          {/* <InfoBar /> */}
           <Navbar />
           {/* route component */}
           <Routes />
@@ -21,6 +23,7 @@ export default function App() {
     </>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {

@@ -1,15 +1,36 @@
-import { useState } from "react";
-import axios from "../config/axios";
+import api from "../config/axios";
+// import axios from "axios";
 
-export default async function SignIn({ email, password }) {
+async function SignIn({ email = '', password = '' }) {
+    // console.log('asdas');
 
-    const [response, setResponse] = useState([])
-    const [error, setError] = useState([])
+    try {
+        var data = await api.post(
+            '/auth',
+            {
+                email: email,
+                password: password
+            },
+            {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }
+        )
 
-    axios.post('/login', { email, password }).then((resp) => {
-        setResponse(resp.data)
-    }).catch((err) => setError(err))
+        return data.data
 
-    return ({ response, error })
+    } catch (error) {
+        console.log(error.message)
+    }
 
+    // .then((res) => {
+    //     console.log(res.data);
+    // })
+    // .catch((error) => {
+    //     console.log('error');
+    //     console.error(error);
+    // });
 }
+
+export default SignIn;

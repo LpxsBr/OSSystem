@@ -3,7 +3,7 @@ import SignIn                       from "../Services/auth";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AuthContext = createContext({
-    signIn: false,
+    signIn: true,
     token: '',
     user: {},
     authSignIn: () => { },
@@ -12,22 +12,28 @@ const AuthContext = createContext({
 
 export function AuthProvider({ children }) {
 
-    const [user, setUser] = useState(Object ?? null)
+    const [user, setUser] = useState(null)
 
-    function authSignIn({email, password}){
-        const response = SignIn({email, password});
+    async function authSignIn({email, password}){
+        try {
+            var response = await SignIn({email, password})
+            setUser(response.data)
 
-        if(response){
-            console.log(response)
-        }else{
-            console.log('deu rum');
+            await AsyncStorage.setItem('data_app_OS', JSON.stringify({
+                token:  user.token,
+                user:   user.user
+            }))
+
+            console.log(await AsyncStorage.getItem('data_app_OS')); 
+        } catch (error) {
+            console.log(error)
         }
-        
+        console.log(user);
     }
 
-    function authSignOut(){
-        console.log('logged out');
-        return('logged out')
+    async   function authSignOut(){
+        await AsyncStorage.removeItem('data_app_OS')
+        setUser(null)
     }
 
     return (
@@ -35,7 +41,7 @@ export function AuthProvider({ children }) {
             authSignIn,
             authSignOut,
             user,
-            signIn: !!user
+            signIn: !user
         }}>
             {children}
         </AuthContext.Provider>
